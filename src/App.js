@@ -33,7 +33,7 @@ export default function App() {
   return (
     <div>
       <h1>Stopwatch</h1>
-      <p>Time:{format(elapsed)}</p>
+      <p>Time: {format(elapsed)}</p>
       <button onClick={toggle}>{running ? "Stop" : "Start"}</button>
       <button onClick={reset}>Reset</button>
     </div>
