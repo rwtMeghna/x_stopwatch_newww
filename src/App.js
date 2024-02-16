@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
 
-function App() {
+export default function App() {
+  const [running, setRunning] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
+
+  const toggle = () => {
+    setRunning((prev) => !prev);
+  };
+
+  const format = (secs) => {
+    const mins = Math.floor(secs / 60);
+    const remaingsecs = secs % 60;
+    return `${mins}:${remaingsecs < 10 ? "0" : ""}${remaingsecs}`;
+  };
+
+  const reset = () => {
+    setElapsed(0);
+    setRunning(false);
+  };
+  useEffect(() => {
+    let intervalid;
+    if (running) {
+      intervalid = setInterval(() => {
+        setElapsed((preelapsed) => preelapsed + 1);
+      }, 1000);
+    } else {
+      clearInterval(intervalid);
+    }
+    return () => clearInterval(intervalid);
+  }, [running]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Stopwatch</h1>
+      <p>Time:{format(elapsed)}</p>
+      <button onClick={toggle}>{running ? "Start" : "Stop"}</button>
+      <button onClick={reset}>Reset</button>
     </div>
   );
 }
-
-export default App;
