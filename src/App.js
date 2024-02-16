@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
   const [running, setRunning] = useState(false);
@@ -22,7 +22,7 @@ export default function App() {
     let intervalid;
     if (running) {
       intervalid = setInterval(() => {
-        setElapsed((preelapsed) => preelapsed + 1);
+        setElapsed((preElapsed) => preElapsed + 1);
       }, 1000);
     } else {
       clearInterval(intervalid);
@@ -34,7 +34,7 @@ export default function App() {
     <div>
       <h1>Stopwatch</h1>
       <p>Time:{format(elapsed)}</p>
-      <button onClick={toggle}>{running ? "Start" : "Stop"}</button>
+      <button onClick={toggle}>{running ? "Stop" : "Start"}</button>
       <button onClick={reset}>Reset</button>
     </div>
   );
